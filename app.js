@@ -65,37 +65,12 @@ app.post("/compose",function(req,res){
   // res.redirect("/");
 });
 
-// Autosave endpoint
-app.post('/autosave', (req, res) => {
-  const formData =req.body
-
-  // Save the form data to a file
-  fs.writeFile('autosave.json', JSON.stringify(formData), (err) => {
-    if (err) {
-      console.error('Error saving form data:', err);
-      res.status(500).send('Error saving form data');
-    } else {
-      console.log('Form data saved successfully');
-      res.status(200).send('Form data saved successfully');
-    }
-  });
-});
-
-// Route to retrieve autosaved form data
-app.get('/autosave', (req, res) => {
-  fs.readFile('autosave.json', 'utf8', (err, data) => {
-    if (err) {
-      console.error('Error retrieving form data:', err);
-      res.status(500).send('Error retrieving form data');
-    } else {
-      const formData = JSON.parse(data);
-      res.status(200).json(formData);
-    }
-  });
-});
 
 
-
+let port =process.env.PORT;
+if(port==null || port ==""){
+    port=3000;
+}
 
 app.listen(3000, function() {
   console.log("Server started on port 3000");
